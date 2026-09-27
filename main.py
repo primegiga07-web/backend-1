@@ -52,7 +52,9 @@ def auth_anon(req: AuthRequest):
 
 @app.get("/api/games")
 def get_games():
-    games = supabase.table("games").select("*").order("created_at", desc=True).execute()
+    games = supabase.table("games").select(
+        "id, name, description, thumbnail_url, hype_count, created_at"
+    ).order("created_at", desc=True).execute()
     return games.data
 
 @app.post("/api/games/{game_id}/hype")
